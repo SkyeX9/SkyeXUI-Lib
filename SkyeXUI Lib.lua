@@ -182,7 +182,7 @@ function Library:NewTab(name)
         TitleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         TitleLabel.BackgroundTransparency = 1.000
         TitleLabel.Position = UDim2.new(0, 0, 0, 1)
-        TitleLabel.Size = UDim2.new(0, 194, 0, 15.8)
+        TitleLabel.Size = UDim2.new(0, 194, 0, 16)
         TitleLabel.ZIndex = 2
         TitleLabel.Font = Enum.Font.GothamBold
         TitleLabel.Text = "UILib By SkyeX"
