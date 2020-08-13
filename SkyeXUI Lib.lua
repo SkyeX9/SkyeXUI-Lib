@@ -175,14 +175,14 @@ function Library:NewTab(name)
         ContainerLabel.BorderSizePixel = 0
         ContainerLabel.LayoutOrder = OrderVar
         ContainerLabel.Position = UDim2.new(0, 0, 0, 0)
-        ContainerLabel.Size = UDim2.new(0, 196, 0, 18)
+        ContainerLabel.Size = UDim2.new(0, 196, 0, 17)
         local TitleLabel = Instance.new("TextLabel")
         TitleLabel.Name = "TitleLabel"
         TitleLabel.Parent = ContainerLabel
         TitleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         TitleLabel.BackgroundTransparency = 1.000
         TitleLabel.Position = UDim2.new(0, 0, 0, 1)
-        TitleLabel.Size = UDim2.new(0, 194, 0, 15.5)
+        TitleLabel.Size = UDim2.new(0, 194, 0, 16)
         TitleLabel.ZIndex = 2
         TitleLabel.Font = Enum.Font.GothamBold
         TitleLabel.Text = "UILib By SkyeX"
