@@ -1,7 +1,8 @@
 local Lib = {}
     if game.CoreGui:FindFirstChild("Lib") then
         game.CoreGui:FindFirstChild("Lib"):Destroy()
-    end
+	end
+	local tweenService = game:GetService"TweenService"
     local ScreenGui = Instance.new("ScreenGui",game.CoreGui)
     ScreenGui.Name = "Lib"
     local roundDecimals = function(num, places)
@@ -455,17 +456,19 @@ local Lib = {}
                 MouseDown = true 
                 local Check
                 spawn(function()
-                    repeat game.RunService.RenderStepped:wait()
+					repeat game.RunService.RenderStepped:wait()
+						--TWEEN BREAKS IT cause im lazy.
+						--tweenService:Create(Fill, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
                         Fill.Size = UDim2.new(0,-(Fill.AbsolutePosition.X - game.Players.LocalPlayer:GetMouse().X - 3),0,6)
                     until MouseDown == false
                     Check:Disconnect()
                 end)
                 Check = Fill.Changed:Connect(function()
                     if precise then
-                        location[flag] = min + math.ceil(((max - min)/169) * (Fill.AbsoluteSize.X - 6))
+                        location[flag] = min + math.ceil(((max - min)/166) * (Fill.AbsoluteSize.X - 6))
                         Text_6.Text = tostring(location[flag])
                     else
-                        location[flag] = min + roundDecimals(((max - min)/169) * (Fill.AbsoluteSize.X - 6),2)
+                        location[flag] = min + roundDecimals(((max - min)/166) * (Fill.AbsoluteSize.X - 6),2)
                         Text_6.Text = location[flag]
                     end
                     spawn(callback)
