@@ -448,7 +448,7 @@ local Lib = {}
             if default then
                 location[flag] = default
                 Text_6.Text = default
-                Fill.Size = UDim2.new(0,134/(min +(max - min)) * default,0,6)
+                Fill.Size = UDim2.new(0,160/(min +(max - min)) * default,0,6)
             end
             local MouseDown = nil
             local function MakeChange()
