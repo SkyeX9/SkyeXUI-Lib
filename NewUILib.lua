@@ -1,4 +1,5 @@
 if game.CoreGui:FindFirstChild("ScreenGui") then game.CoreGui:FindFirstChild("ScreenGui"):Remove() end
+local HttpService = game:GetService("HttpService")
 local function GetUUID()
 	local NewUUID = HttpService:GenerateGUID(false)
 	return NewUUID
