@@ -460,7 +460,7 @@ local Lib = {}
                     until MouseDown == false
                     Check:Disconnect()
                 end)
-                Check = Main2.Changed:Connect(function()
+                Check = Fill.Changed:Connect(function()
                     if precise then
                         location[flag] = min + math.ceil(((max - min)/134) * (Fill.AbsoluteSize.X - 6))
                         Text_6.Text = tostring(location[flag])
