@@ -380,10 +380,16 @@ local Lib = {}
             Text_6.TextStrokeTransparency = 0.920
             Text_6.TextXAlignment = Enum.TextXAlignment.Right
             Text_6.FocusLost:Connect(function()
-                if not tonumber(Text_6.Text) then
-                    Text_6.Text = tonumber(location[flag])
+				if not tonumber(Text_6.Text) then
+					Text_6.Text = tonumber(location[flag])
+					if location[flag] > max then
+						location[flag] = max
+					end
                 else
-                    Text_6.Text = tonumber(Text_6.Text)
+					Text_6.Text = tonumber(Text_6.Text)
+					if location[flag] > max then
+						location[flag] = max
+					end
                     Fill.Size = UDim2.new(0,134/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
                     location[flag] = tonumber(Text_6.Text)
                     spawn(callback)
