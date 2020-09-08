@@ -199,7 +199,7 @@ local Lib = {}
             Text.TextColor3 = Color3.fromRGB(255, 255, 255)
             Text.TextSize = 12
             Text.TextXAlignment = Enum.TextXAlignment.Center
-            Text.Text = " " .. name
+            Text.Text =  name
             Text.ZIndex = 2
 
             round.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -460,7 +460,7 @@ local Lib = {}
                     until MouseDown == false
                     Check:Disconnect()
                 end)
-                Check = Fill.Changed:Connect(function()
+                Check = Main2.Changed:Connect(function()
                     if precise then
                         location[flag] = min + math.ceil(((max - min)/134) * (Fill.AbsoluteSize.X - 6))
                         Text_6.Text = tostring(location[flag])
@@ -474,12 +474,12 @@ local Lib = {}
                     end
                 end)
             end
-            Fill.InputBegan:connect(function(inp)
+            Main2.InputBegan:connect(function(inp)
                 if inp.UserInputType.Value == 0 then 
                     MakeChange()
                 end
             end)
-            Fill.InputEnded:connect(function(inp)
+            Main2.InputEnded:connect(function(inp)
                 if inp.UserInputType.Value == 0 then 
                     MouseDown = false
                 end
@@ -1164,4 +1164,4 @@ local Lib = {}
         end
         return Window
     end
-    return Lib
+return Lib
