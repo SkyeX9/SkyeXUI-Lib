@@ -1,4 +1,8 @@
 if game.CoreGui:FindFirstChild("ScreenGui") then game.CoreGui:FindFirstChild("ScreenGui"):Remove() end
+local function GetUUID()
+	local NewUUID = HttpService:GenerateGUID(false)
+	return NewUUID
+end
 local library = {flags = {}, windows = {}, open = true}
 --Services
 local runService = game:GetService"RunService"
