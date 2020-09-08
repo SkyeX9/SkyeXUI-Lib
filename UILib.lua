@@ -381,16 +381,17 @@ local Lib = {}
             Text_6.TextXAlignment = Enum.TextXAlignment.Right
             Text_6.FocusLost:Connect(function()
 				if not tonumber(Text_6.Text) then
-					Text_6.Text = tonumber(location[flag])
 					if location[flag] > max then
 						location[flag] = max
 					end
-                else
 					Text_6.Text = tonumber(Text_6.Text)
-					if location[flag] > max then
+                else
+					if tonumber(Text_6.Text) > max then
 						location[flag] = max
+						Text_6.Text = tonumber(location[flag])
 					end
-                    Fill.Size = UDim2.new(0,134/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
+					Text_6.Text = tonumber(location[flag])
+					Fill.Size = UDim2.new(0,170/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
                     location[flag] = tonumber(Text_6.Text)
                     spawn(callback)
                 end
