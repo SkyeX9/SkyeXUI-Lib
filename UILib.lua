@@ -498,7 +498,7 @@ local Lib = {}
 		end
     end)
     
-	function option:SetValue(value)
+	function options:SetValue(value)
 		value = round(value, option.float)
 		value = math.clamp(value, min, max)
 		--circle:TweenPosition(UDim2.new((value - min) / (max - min), 0, 0.5, 0), "Out", "Quad", 0.1, true)
