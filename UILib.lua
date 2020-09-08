@@ -383,7 +383,7 @@ local Lib = {}
                     Text_6.Text = tonumber(location[flag])
                 else
                     Text_6.Text = tonumber(Text_6.Text)
-                    Fill.Size = UDim2.new(0,134/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
+                    Fill.Size = UDim2.new(0,140/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
                     location[flag] = tonumber(Text_6.Text)
                     spawn(callback)
                 end
@@ -448,7 +448,7 @@ local Lib = {}
             if default then
                 location[flag] = default
                 Text_6.Text = default
-                Fill.Size = UDim2.new(0,140/(min +(max - min)) * default,0,6)
+                Fill.Size = UDim2.new(0,200/(min +(max - min)) * default,0,6)
             end
             local MouseDown = nil
             local function MakeChange()
@@ -462,10 +462,10 @@ local Lib = {}
                 end)
                 Check = Main2.Changed:Connect(function()
                     if precise then
-                        location[flag] = min + math.ceil(((max - min)/140) * (Fill.AbsoluteSize.X - 6))
+                        location[flag] = min + math.ceil(((max - min)/200) * (Fill.AbsoluteSize.X - 6))
                         Text_6.Text = tostring(location[flag])
                     else
-                        location[flag] = min + roundDecimals(((max - min)/140) * (Fill.AbsoluteSize.X - 6),2)
+                        location[flag] = min + roundDecimals(((max - min)/200) * (Fill.AbsoluteSize.X - 6),2)
                         Text_6.Text = location[flag]
                     end
                     spawn(callback)
