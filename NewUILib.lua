@@ -645,8 +645,7 @@ local function createSlider(option, parent)
 end
 
 local function createList(option, parent, holder)
-    local valueCount = 0
-    local enabled = false
+	local valueCount = 0
 	
 	local main = library:Create("Frame", {
 		LayoutOrder = option.position,
@@ -740,32 +739,28 @@ local function createList(option, parent, holder)
 	layout.Changed:connect(function()
 		option.mainHolder.Size = UDim2.new(0, 180, 0, (valueCount > 4 and (4 * 40) or layout.AbsoluteContentSize.Y) + 12)
 		content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 12)
-	end)
+    end)
 	
 	local inContact
-    round.InputBegan:connect(function(input)
-        enabled = not enabled
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            if not enabled then
-			    if library.activePopup then
-			    	library.activePopup:Close()
-			    end
-			    local position = main.AbsolutePosition
-			    option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
-			    option.open = true
-			    option.mainHolder.Visible = true
-			    library.activePopup = option
-			    content.ScrollBarThickness = 6
-			    tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X + 222, 0, position.Y - 4)}):Play()
-			    tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X + 222, 0, position.Y + 1)}):Play()
-			    for _,label in next, content:GetChildren() do
-			    	if label:IsA"TextLabel" then
-			    		tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
-			    	end
-			    end
-            else
-                library.activePopup:Close()
-            end
+	round.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if library.activePopup then
+				library.activePopup:Close()
+			end
+			local position = main.AbsolutePosition
+			option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
+			option.open = true
+			option.mainHolder.Visible = true
+			library.activePopup = option
+			content.ScrollBarThickness = 6
+			tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X + 222, 0, position.Y - 4)}):Play()
+			tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X + 222, 0, position.Y + 1)}):Play()
+			for _,label in next, content:GetChildren() do
+				if label:IsA"TextLabel" then
+					tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+				end
+			end
+		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
 			if not option.open then
@@ -877,7 +872,7 @@ local function createList(option, parent, holder)
 			end
 		--end)
 	end
-
+    library.activePopup = nil
 	return option
 end
 
@@ -1622,8 +1617,8 @@ function library:Init()
 		AnchorPoint = Vector2.new(0, 0),
 		Size = UDim2.new(0, 5, 0, 5),
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		Parent = self.base,
-    		Visible = false
+        Parent = self.base,
+        Visible = false
 	})
 	
 	for _, window in next, self.windows do
