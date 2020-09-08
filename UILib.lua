@@ -449,7 +449,7 @@ local Lib = {}
             if default then
                 location[flag] = default
                 Text_6.Text = default
-                Fill.Size = UDim2.new(0,174/(min +(max - min)) * default,0,6)
+                Fill.Size = UDim2.new(0,170/(min +(max - min)) * default,0,6)
             end
             local MouseDown = nil
             local function MakeChange()
@@ -464,13 +464,20 @@ local Lib = {}
                     Check:Disconnect()
                 end)
                 Check = Fill.Changed:Connect(function()
-                    if precise then
+					if precise then
                         location[flag] = min + math.ceil(((max - min)/166) * (Fill.AbsoluteSize.X - 6))
-                        Text_6.Text = tostring(location[flag])
-                    else
+						if location[flag] > max then
+							location[flag] = max
+						end
+						Text_6.Text = tostring(location[flag])
+					else
                         location[flag] = min + roundDecimals(((max - min)/166) * (Fill.AbsoluteSize.X - 6),2)
-                        Text_6.Text = location[flag]
-                    end
+						if location[flag] > max then
+							location[flag] = max
+						end
+						Text_6.Text = location[flag]
+					end
+					
                     spawn(callback)
                     if MouseDown == false then
                         Check:Disconnect()
