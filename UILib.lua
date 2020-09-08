@@ -202,14 +202,14 @@ local Lib = {}
             Text.Text =  name
             Text.ZIndex = 2
 
-            round.AnchorPoint = Vector2.new(0.5, 0.5)
-            round.Position = UDim2.new(0, 0, 0, 0)
+            round.AnchorPoint = Vector2.new(0.45, 0.5)
+            round.Position = UDim2.new(0.487, 0, 0.5, 0)
             round.Size = UDim2.new(1, -12, 1, -12)
             round.BackgroundTransparency = 1
             round.Image = "rbxassetid://3570695787"
             round.ImageColor3 = Color3.fromRGB(40, 40, 40)
             round.ScaleType = Enum.ScaleType.Slice
-            --round.SliceCenter = Rect.new(100, 100, 100, 100)
+            round.SliceCenter = Rect.new(100, 100, 100, 100)
             round.SliceScale = 0.02
             round.Parent = Text
 
