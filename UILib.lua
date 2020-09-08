@@ -41,7 +41,6 @@ local Lib = {}
         local Window = {}
 
         local Main = Instance.new("ImageLabel")
-        local glow = Instance.new("ImageLabel")
         local buttonHolder = Instance.new("Frame")
         local Corner = Instance.new("UICorner")
         local holder = Instance.new("Frame")
@@ -50,14 +49,13 @@ local Lib = {}
         local Title = Instance.new("Frame")
         local Title_2 = Instance.new("TextLabel")
         local Minimize = Instance.new("TextButton")
-        local glow_2 = Instance.new("ImageLabel")
 
         Main.Name = "Main"
         Main.Parent = ScreenGui
         Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Main.BackgroundTransparency = 1.000
         Main.Position = UDim2.new(0, 15, 0, 15)
-        Main.Size = UDim2.new(0, 150, 0, 206)
+        Main.Size = UDim2.new(0, 180, 0, 206)
         Main.Image = "rbxassetid://3570695787"
         Main.ImageColor3 = Color3.fromRGB(35, 35, 35)
         Main.ScaleType = Enum.ScaleType.Slice
@@ -68,19 +66,7 @@ local Lib = {}
         Main.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
         Main.BorderSizePixel = 0
         Main.Position = UDim2.new(0, #ScreenGui:GetChildren() * 170 - 155, 0, 15)
-        Main.Size = UDim2.new(0, 150, 0, 25)
-
-        glow.Name = "glow"
-        glow.Parent = Main
-        glow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        glow.BackgroundTransparency = 1.000
-        glow.BorderSizePixel = 0
-        glow.Position = UDim2.new(0, -15, 0, -15)
-        glow.Size = UDim2.new(1, 30, 1, 30)
-        glow.Image = "rbxassetid://4905552912"
-        glow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        glow.ScaleType = Enum.ScaleType.Slice
-        glow.SliceCenter = Rect.new(20, 20, 280, 280)
+        Main.Size = UDim2.new(0, 180, 0, 25)
 
         buttonHolder.Name = "buttonHolder"
         buttonHolder.Parent = Main
@@ -142,18 +128,6 @@ local Lib = {}
         Minimize.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
         Minimize.TextStrokeTransparency = 0.920
 
-        glow_2.Name = "glow"
-        glow_2.Parent = Title
-        glow_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        glow_2.BackgroundTransparency = 1.000
-        glow_2.BorderSizePixel = 0
-        glow_2.Position = UDim2.new(0, -15, 0, -15)
-        glow_2.Size = UDim2.new(1, 30, 1, 30)
-        glow_2.Image = "rbxassetid://4905552912"
-        glow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        glow_2.ScaleType = Enum.ScaleType.Slice
-        glow_2.SliceCenter = Rect.new(20, 20, 280, 280)
-
         local CurrentSize = 25
         local Invis = {}
         Minimize.MouseButton1Click:Connect(function()
@@ -168,10 +142,10 @@ local Lib = {}
                         end
                     end
                 end
-                Main:TweenSize(UDim2.new(0, 150, 0, 25), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                Main:TweenSize(UDim2.new(0, 180, 0, 25), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
             else
                 Minimize.Text = "-"
-                Main:TweenSize(UDim2.new(0, 150, 0, CurrentSize), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                Main:TweenSize(UDim2.new(0, 180, 0, CurrentSize), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                 wait(0.15)
                 for i,v in pairs(Invis) do
                     v.Visible = true
@@ -229,8 +203,8 @@ local Lib = {}
             Text.ZIndex = 2
 
             round.AnchorPoint = Vector2.new(0.5, 0.5)
-            round.Position = UDim2.new(0.5, 0, 0.5, 0)
-            round.Size = UDim2.new(1, -12, 1, -10)
+            round.Position = UDim2.new(0.487, 0, 0.5, 0)
+            round.Size = UDim2.new(1, -12, 1, -12)
             round.BackgroundTransparency = 1
             round.Image = "rbxassetid://3570695787"
             round.ImageColor3 = Color3.fromRGB(40, 40, 40)
@@ -360,163 +334,189 @@ local Lib = {}
         end
 
         function Window:Slider(name, options, callback)
-            local default = options.default or options.min
-            local min = options.min or 0
-            local max = options.max or 1
-            local location = options.location or self.flags
-            local precise = options.precise or false
-            local flag = options.flag or ""
-            local callback = callback or function() end
+    local default = options.default or options.min
+    local min = options.min or 0
+    local max = options.max or 1
+    local location = options.location or self.flags
+    local precise = options.precise or false
+    local flag = options.flag or ""
+    local callback = callback or function() end
 
-            local Slider = Instance.new("Frame")
-            local Text = Instance.new("TextLabel")
-            local sliderHolder = Instance.new("Frame")
-            local Main2 = Instance.new("ImageLabel")
-            local Fill = Instance.new("ImageLabel")
-            local UISizeConstraint = Instance.new("UISizeConstraint")
-            local Holder = Instance.new("Frame")
-            local Text_6 = Instance.new("TextBox")
-            
-            Holder.Name = "Holder"
-            Holder.Parent = Slider
-            Holder.AnchorPoint = Vector2.new(1, 0)
-            Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Holder.BackgroundTransparency = 1
-            Holder.ClipsDescendants = true
-            Holder.Position = UDim2.new(0.965517223, 0, 0.13333334, -2)
-            Holder.Size = UDim2.new(0.694068968, 0, 0.466666669, 0)
-            Holder.ZIndex = 10
+    local Slider = Instance.new("Frame")
+    local Text = Instance.new("TextLabel")
+    local sliderHolder = Instance.new("Frame")
+    local Main2 = Instance.new("ImageLabel")
+    local Fill = Instance.new("ImageLabel")
+    local UISizeConstraint = Instance.new("UISizeConstraint")
+    local Holder = Instance.new("Frame")
+    local Text_6 = Instance.new("TextBox")
+    
+    Holder.Name = "Holder"
+    Holder.Parent = Slider
+    Holder.AnchorPoint = Vector2.new(1, 0)
+    Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Holder.BackgroundTransparency = 1
+    Holder.ClipsDescendants = true
+    Holder.Position = UDim2.new(0.965517223, 0, 0.13333334, -2)
+    Holder.Size = UDim2.new(0.694068968, 0, 0.466666669, 0)
+    Holder.ZIndex = 10
 
-            Text_6.Name = "Text"
-            Text_6.Parent = Holder
-            Text_6.Active = false
-            Text_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Text_6.BackgroundTransparency = 1
-            Text_6.Position = UDim2.new(-0.0320001729, 0, 0.159999996, 0)
-            Text_6.Selectable = false
-            Text_6.Size = UDim2.new(1, 0, 1, 0)
-            Text_6.Font = Enum.Font.GothamBold
-            Text_6.PlaceholderColor3 = Color3.fromRGB(200, 200, 200)
-            Text_6.PlaceholderText = "0"
-            Text_6.Text = ""
-            Text_6.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Text_6.TextSize = 12.000
-            Text_6.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-            Text_6.TextStrokeTransparency = 0.920
-            Text_6.TextXAlignment = Enum.TextXAlignment.Right
-            Text_6.FocusLost:Connect(function()
-                if not tonumber(Text_6.Text) then
-                    Text_6.Text = tonumber(location[flag])
-                else
-                    Text_6.Text = tonumber(Text_6.Text)
-                    Fill.Size = UDim2.new(0,134/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
-                    location[flag] = tonumber(Text_6.Text)
-                    spawn(callback)
-                end
-            end)
-
-            Slider.Name = "Slider"
-            Slider.Parent = holder
-            Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Slider.BackgroundTransparency = 1.000
-            Slider.Size = UDim2.new(1, 0, 0, 30)
-
-            Text.Name = "Text"
-            Text.Parent = Slider
-            Text.Active = false
-            Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Text.BackgroundTransparency = 1.000
-            Text.Position = UDim2.new(0, 0, 0, 2)
-            Text.Selectable = false
-            Text.Size = UDim2.new(1, 0, 0.5, 0)
-            Text.Font = Enum.Font.GothamBold
-            Text.Text = name
-            Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Text.TextSize = 12
-            Text.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-            Text.TextStrokeTransparency = 0.920
-            Text.TextXAlignment = Enum.TextXAlignment.Left
-
-            sliderHolder.Name = "sliderHolder"
-            sliderHolder.Parent = Slider
-            sliderHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            sliderHolder.BackgroundTransparency = 1.000
-            sliderHolder.Position = UDim2.new(0, -5, 0, 15)
-            sliderHolder.Size = UDim2.new(1, 5, 0.5, 0)
-
-            Main2.Name = "Main"
-            Main2.Parent = sliderHolder
-            Main2.AnchorPoint = Vector2.new(0.5, 0.5)
-            Main2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Main2.BackgroundTransparency = 1.000
-            Main2.Position = UDim2.new(0.5, 0, 0.5, 0)
-            Main2.Size = UDim2.new(1, -10, 0, 6)
-            Main2.Image = "rbxassetid://3570695787"
-            Main2.ImageColor3 = Color3.fromRGB(45, 45, 45)
-            Main2.ScaleType = Enum.ScaleType.Slice
-            Main2.SliceCenter = Rect.new(100, 100, 100, 100)
-            Main2.SliceScale = 0.120
-
-            Fill.Name = "Fill"
-            Fill.Parent = Main2
-            Fill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            Fill.BackgroundTransparency = 1.000
-            Fill.Size = UDim2.new(0, 50, 0, 6)
-            Fill.Image = "rbxassetid://3570695787"
-            Fill.ScaleType = Enum.ScaleType.Slice
-            Fill.SliceCenter = Rect.new(100, 100, 100, 100)
-            Fill.SliceScale = 0.120
-
-            UISizeConstraint.Parent = Fill
-            UISizeConstraint.MaxSize = Vector2.new(140, 6)
-            UISizeConstraint.MinSize = Vector2.new(6,6)
-
-            if default then
-                location[flag] = default
-                Text_6.Text = default
-                Fill.Size = UDim2.new(0,134/(min +(max - min)) * default,0,6)
-            end
-            local MouseDown = nil
-            local function MakeChange()
-                MouseDown = true 
-                local Check
-                spawn(function()
-                    repeat game.RunService.RenderStepped:wait()
-                        Fill.Size = UDim2.new(0,-(Fill.AbsolutePosition.X - game.Players.LocalPlayer:GetMouse().X - 3),0,6)
-                    until MouseDown == false
-                    Check:Disconnect()
-                end)
-                Check = Fill.Changed:Connect(function()
-                    if precise then
-                        location[flag] = min + math.ceil(((max - min)/134) * (Fill.AbsoluteSize.X - 6))
-                        Text_6.Text = tostring(location[flag])
-                    else
-                        location[flag] = min + roundDecimals(((max - min)/134) * (Fill.AbsoluteSize.X - 6),2)
-                        Text_6.Text = location[flag]
-                    end
-                    spawn(callback)
-                    if MouseDown == false then
-                        Check:Disconnect()
-                    end
-                end)
-            end
-            Fill.InputBegan:connect(function(inp)
-                if inp.UserInputType.Value == 0 then 
-                    MakeChange()
-                end
-            end)
-            Fill.InputEnded:connect(function(inp)
-                if inp.UserInputType.Value == 0 then 
-                    MouseDown = false
-                end
-            end)
-            local Player = game:GetService("Players").LocalPlayer
-            local Mouse = Player:GetMouse()
-            Mouse.Button1Up:Connect(function()
-                MouseDown = false
-            end)
-            Update(30)
+    Text_6.Name = "Text"
+    Text_6.Parent = Holder
+    Text_6.Active = false
+    Text_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Text_6.BackgroundTransparency = 1
+    Text_6.Position = UDim2.new(-0.0320001729, 0, 0.159999996, 0)
+    Text_6.Selectable = false
+    Text_6.Size = UDim2.new(1, 0, 1, 0)
+    Text_6.Font = Enum.Font.GothamBold
+    Text_6.PlaceholderColor3 = Color3.fromRGB(200, 200, 200)
+    Text_6.PlaceholderText = "0"
+    Text_6.Text = ""
+    Text_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Text_6.TextSize = 12.000
+    Text_6.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+    Text_6.TextStrokeTransparency = 0.920
+    Text_6.TextXAlignment = Enum.TextXAlignment.Right
+    Text_6.FocusLost:Connect(function()
+        if not tonumber(Text_6.Text) then
+            Text_6.Text = tonumber(location[flag])
+        else
+            Text_6.Text = tonumber(Text_6.Text)
+            Fill.Size = UDim2.new(0,134/math.ceil(min +max) * tonumber(Text_6.Text),0,6)
+            location[flag] = tonumber(Text_6.Text)
+            spawn(callback)
         end
+    end)
+
+    Slider.Name = "Slider"
+    Slider.Parent = holder
+    Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Slider.BackgroundTransparency = 1.000
+    Slider.Size = UDim2.new(1, 0, 0, 30)
+
+    Text.Name = "Text"
+    Text.Parent = Slider
+    Text.Active = false
+    Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Text.BackgroundTransparency = 1.000
+    Text.Position = UDim2.new(0, 0, 0, 2)
+    Text.Selectable = false
+    Text.Size = UDim2.new(1, 0, 0.5, 0)
+    Text.Font = Enum.Font.GothamBold
+    Text.Text = name
+    Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Text.TextSize = 12
+    Text.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+    Text.TextStrokeTransparency = 0.920
+    Text.TextXAlignment = Enum.TextXAlignment.Left
+
+    sliderHolder.Name = "sliderHolder"
+    sliderHolder.Parent = Slider
+    sliderHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderHolder.BackgroundTransparency = 1.000
+    sliderHolder.Position = UDim2.new(0, -5, 0, 15)
+    sliderHolder.Size = UDim2.new(1, 5, 0.5, 0)
+
+    Main2.Name = "Main"
+    Main2.Parent = sliderHolder
+    Main2.AnchorPoint = Vector2.new(0.5, 0.5)
+    Main2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Main2.BackgroundTransparency = 1.000
+    Main2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Main2.Size = UDim2.new(1, -10, 0, 6)
+    Main2.Image = "rbxassetid://3570695787"
+    Main2.ImageColor3 = Color3.fromRGB(45, 45, 45)
+    Main2.ScaleType = Enum.ScaleType.Slice
+    Main2.SliceCenter = Rect.new(100, 100, 100, 100)
+    Main2.SliceScale = 0.120
+
+    Fill.Name = "Fill"
+    Fill.Parent = Main2
+    Fill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Fill.BackgroundTransparency = 1.000
+    Fill.Size = UDim2.new(0, 50, 0, 6)
+    Fill.Image = "rbxassetid://3570695787"
+    Fill.ScaleType = Enum.ScaleType.Slice
+    Fill.SliceCenter = Rect.new(100, 100, 100, 100)
+    Fill.SliceScale = 0.120
+
+    UISizeConstraint.Parent = Fill
+    UISizeConstraint.MaxSize = Vector2.new(140, 6)
+    UISizeConstraint.MinSize = Vector2.new(6,6)
+
+    if default then
+        location[flag] = default
+        Text_6.Text = default
+        Fill.Size = UDim2.new(0,134/(min +(max - min)) * default,0,6)
+    end
+
+    -- NEW
+
+    local sliding
+	local inContact
+	Main2.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			tweenService:Create(Fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(4, 175, 236)}):Play()
+			--tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(3.5, 0, 3.5, 0), ImageColor3 = Color3.fromRGB(4, 175, 236)}):Play()
+			sliding = true
+			option:SetValue(option.min + ((input.Position.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X) * (option.max - option.min))
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			if not sliding then
+				tweenService:Create(Fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+				--tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(2.8, 0, 2.8, 0), ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			end
+		end
+	end)
+	
+	Usp.InputChanged:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement and sliding then
+			option:SetValue(option.min + ((input.Position.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X) * (option.max - option.min))
+		end
+	end)
+
+	Main2.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			sliding = false
+			if inContact then
+				tweenService:Create(Fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			--	tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(2.8, 0, 2.8, 0), ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			else
+				tweenService:Create(Fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			--	tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0), ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			end
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
+			inputvalue:ReleaseFocus()
+			if not sliding then
+				tweenService:Create(Fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			--	tweenService:Create(circle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 0, 0, 0), ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			end
+		end
+    end)
+    
+	function option:SetValue(value)
+		value = round(value, option.float)
+		value = math.clamp(value, min, max)
+		--circle:TweenPosition(UDim2.new((value - min) / (max - min), 0, 0.5, 0), "Out", "Quad", 0.1, true)
+		if min >= 0 then
+			Fill:TweenSize(UDim2.new((value - min) / (max - min), 0, 1, 0), "Out", "Quad", 0.1, true)
+		else
+			Fill:TweenPosition(UDim2.new((0 - min) / (max - min), 0, 0, 0), "Out", "Quad", 0.1, true)
+			Fill:TweenSize(UDim2.new(value / (max - min), 0, 1, 0), "Out", "Quad", 0.1, true)
+        end
+        
+
+		--library.flags[self.flag] = value
+		self.value = value
+		Text_6.Text = value
+		self.callback(value)
+	end
+    Update(30)
+end
 
         function Window:Dropdown(name, options, callback)
             local location   = options.location or self.flags
@@ -599,9 +599,9 @@ local Lib = {}
                     if Search then
                         TextBox.Visible = true
                     end
-                    Holder.Size = UDim2.new(0, 140, 0, 1) 
-                    Holder:TweenSize(UDim2.new(0, 140, 0, 100), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-                    Main:TweenSize(UDim2.new(0, 150, 0, Main.AbsoluteSize.Y + Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Holder.Size = UDim2.new(0, 170, 0, 1) 
+                    Holder:TweenSize(UDim2.new(0, 170, 0, 100), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Main:TweenSize(UDim2.new(0, 180, 0, Main.AbsoluteSize.Y + Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                     wait(0.15)
                     Del(true)
                     for i,v in pairs(list) do
@@ -610,7 +610,7 @@ local Lib = {}
                         Text_2.Parent = ScrollingFrame
                         Text_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                         Text_2.BackgroundTransparency = 1.000
-                        Text_2.Size = UDim2.new(0, 132, 0, 20)
+                        Text_2.Size = UDim2.new(0, 170, 0, 20)
                         Text_2.Font = Enum.Font.GothamBold
                         Text_2.Text = "  "..v
                         Text_2.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -635,8 +635,8 @@ local Lib = {}
                                 TextBox.Visible = false
                                 TextBox.Text = ""
                             end
-                            Main:TweenSize(UDim2.new(0, 150, 0, Main.AbsoluteSize.Y - Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-                            Holder:TweenSize(UDim2.new(0, 140, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                            Main:TweenSize(UDim2.new(0, 180, 0, Main.AbsoluteSize.Y - Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                            Holder:TweenSize(UDim2.new(0, 170, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                             wait(0.15)
                             TextButton.Rotation = 0
                             Holder.Visible = false
@@ -660,8 +660,8 @@ local Lib = {}
                         TextBox.Visible = false
                         TextBox.Text = ""
                     end
-                    Main:TweenSize(UDim2.new(0, 150, 0, Main.AbsoluteSize.Y - Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-                    Holder:TweenSize(UDim2.new(0, 140, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Main:TweenSize(UDim2.new(0, 180, 0, Main.AbsoluteSize.Y - Size), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Holder:TweenSize(UDim2.new(0, 170, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                     ScrollingFrame.CanvasSize = UDim2.new(0,0,0,0)
                     wait(0.15)
                     for i,v in pairs(ScrollingFrame:GetChildren()) do
@@ -707,7 +707,7 @@ local Lib = {}
             Holder.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
             Holder.Visible = false
             Holder.Position = UDim2.new(0, 0,0, 22)
-            Holder.Size = UDim2.new(0, 140, 0, 1)
+            Holder.Size = UDim2.new(0, 170, 0, 1)
             Holder.ZIndex = 3
             Holder.BorderSizePixel = 0
 
@@ -716,7 +716,7 @@ local Lib = {}
             ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ScrollingFrame.BackgroundTransparency = 1.000
             ScrollingFrame.BorderSizePixel = 0
-            ScrollingFrame.Size = UDim2.new(0, 137, 0, 100)
+            ScrollingFrame.Size = UDim2.new(0, 167, 0, 100)
             ScrollingFrame.ScrollBarThickness = 4
             ScrollingFrame.ZIndex = 3
             ScrollingFrame.CanvasSize = UDim2.new(0,0,0,0)
@@ -880,7 +880,7 @@ local Lib = {}
             TextBox_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             TextBox_2.BackgroundTransparency = 1.000
             TextBox_2.BorderSizePixel = 0
-            TextBox_2.Position = UDim2.new(0.420689642, 0, 0, 0)
+            TextBox_2.Position = UDim2.new(0.5, 0, 0, 0)
             TextBox_2.Size = UDim2.new(0, 76, 0, 25)
             TextBox_2.Font = Enum.Font.GothamBold
             TextBox_2.PlaceholderColor3 = Color3.fromRGB(200, 200, 200)
@@ -910,7 +910,7 @@ local Lib = {}
             Frame.Parent = TextBox
             Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Frame.BorderSizePixel = 0
-            Frame.Position = UDim2.new(0.420689642, 0, 0.75999999, 0)
+            Frame.Position = UDim2.new(0.5, 0, 0.75999999, 0)
             Frame.Size = UDim2.new(0, 78, 0, 1)
             
             TextBox_2.FocusLost:Connect(function()
@@ -1110,15 +1110,15 @@ local Lib = {}
                     minimize.Text = "+"
                     Visible(false)
                     local Frame = CreateAnimation(Numbers)
-                    Frame:TweenSize(UDim2.new(0, 150, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-                    Main:TweenSize(UDim2.new(0, 150, 0, Main.AbsoluteSize.Y - Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Frame:TweenSize(UDim2.new(0, 180, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Main:TweenSize(UDim2.new(0, 180, 0, Main.AbsoluteSize.Y - Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                     wait(0.2)
                     Frame:Destroy()
                 else
                     minimize.Text = "-"
                     local Frame = CreateAnimation(0)
-                    Frame:TweenSize(UDim2.new(0, 150, 0, Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
-                    Main:TweenSize(UDim2.new(0, 150, 0,Main.AbsoluteSize.Y + Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Frame:TweenSize(UDim2.new(0, 180, 0, Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
+                    Main:TweenSize(UDim2.new(0, 180, 0,Main.AbsoluteSize.Y + Numbers), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.2, true)
                     wait(0.15)
                     Frame:Destroy()
                     Visible(true)
@@ -1151,7 +1151,7 @@ local Lib = {}
             Frame_2.Parent = Frame
             Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Frame_2.BorderSizePixel = 0
-            Frame_2.Position = UDim2.new(0.303000003, 0, 0.800000012, 0)
+            Frame_2.Position = UDim2.new(0.34, 0, 0.800000012, 0) -- 0.303000003
             Frame_2.Size = UDim2.new(0, 57, 0, 1)
 
             function SplitString(str, delim)
