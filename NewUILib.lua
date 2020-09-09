@@ -1623,7 +1623,8 @@ function library:Init()
 		AnchorPoint = Vector2.new(0, 0),
 		Size = UDim2.new(0, 5, 0, 5),
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		Parent = self.base
+		Parent = self.base,
+		Visible = false,
 	})
 	
 	for _, window in next, self.windows do
