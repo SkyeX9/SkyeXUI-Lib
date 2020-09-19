@@ -1,9 +1,4 @@
 if game.CoreGui:FindFirstChild("ScreenGui") then game.CoreGui:FindFirstChild("ScreenGui"):Remove() end
-local HttpService = game:GetService("HttpService")
-local function GetUUID()
-	local NewUUID = HttpService:GenerateGUID(false)
-	return NewUUID
-end
 local library = {flags = {}, windows = {}, open = true}
 --Services
 local runService = game:GetService"RunService"
@@ -695,7 +690,7 @@ local function createList(option, parent, holder)
 		Parent = main
 	})
 	
-	library:Create("ImageLabel", {
+	local closeHolder = library:Create("ImageLabel", {
 		Position = UDim2.new(1, -16, 0, 16),
 		Size = UDim2.new(-1, 32, 1, -32),
 		SizeConstraint = Enum.SizeConstraint.RelativeYY,
@@ -705,7 +700,7 @@ local function createList(option, parent, holder)
 		ImageColor3 = Color3.fromRGB(140, 140, 140),
 		ScaleType = Enum.ScaleType.Fit,
 		Parent = round
-	})
+    })
 	
 	option.mainHolder = library:Create("ImageButton", {
 		ZIndex = 3,
@@ -744,31 +739,36 @@ local function createList(option, parent, holder)
 	layout.Changed:connect(function()
 		option.mainHolder.Size = UDim2.new(0, 180, 0, (valueCount > 4 and (4 * 40) or layout.AbsoluteContentSize.Y) + 12)
 		content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 12)
-    end)
-	
+	end)
+    	
+	library.activePopup = nil
 	local inContact
 	round.InputBegan:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if library.activePopup then
-				library.activePopup:Close()
-			end
-			local position = main.AbsolutePosition
-			option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
-			option.open = true
-			option.mainHolder.Visible = true
-			library.activePopup = option
-			content.ScrollBarThickness = 6
-			tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X + 222, 0, position.Y - 4)}):Play()
-			tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X + 222, 0, position.Y + 1)}):Play()
-			for _,label in next, content:GetChildren() do
-				if label:IsA"TextLabel" then
-					tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
-				end
-			end
+            if library.activePopup then
+                option.open = false
+                tweenService:Create(closeHolder, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = option.open == false and 90, ImageColor3 = option.open == false and Color3.fromRGB(255, 255, 255)}):Play()
+                library.activePopup:Close()
+            else
+                local position = main.AbsolutePosition
+                option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
+                option.open = true
+                option.mainHolder.Visible = true
+                library.activePopup = option
+                content.ScrollBarThickness = 6
+                tweenService:Create(closeHolder, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = option.open == true and 45, ImageColor3 = option.open == true and Color3.fromRGB(255, 255, 255)}):Play()
+                tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X + 222, 0, position.Y - 4)}):Play()
+                tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X + 222, 0, position.Y + 1)}):Play()
+                for _,label in next, content:GetChildren() do
+                    if label:IsA"TextLabel" then
+                        tweenService:Create(label, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+                    end
+                end
+            end
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
-			if not option.open then
+            if not option.open then
 				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
 			end
 		end
@@ -777,7 +777,7 @@ local function createList(option, parent, holder)
 	round.InputEnded:connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = false
-			if not option.open then
+            if not option.open then
 				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(40, 40, 40)}):Play()
 			end
 		end
@@ -862,7 +862,8 @@ local function createList(option, parent, holder)
 		library.activePopup = nil
 		self.open = false
 		content.ScrollBarThickness = 0
-		local position = main.AbsolutePosition
+        local position = main.AbsolutePosition
+        tweenService:Create(closeHolder, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Rotation = self.open == false and 90, ImageColor3 = self.open == false and Color3.fromRGB(255, 255, 255)}):Play()
 		tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = inContact and Color3.fromRGB(60, 60, 60) or Color3.fromRGB(40, 40, 40)}):Play()
 		tweenService:Create(self.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1, Position = UDim2.new(0, position.X - 5, 0, position.Y -10)}):Play()
 		for _,label in next, content:GetChildren() do
@@ -877,7 +878,7 @@ local function createList(option, parent, holder)
 			end
 		--end)
 	end
-    library.activePopup = nil
+
 	return option
 end
 
@@ -1079,7 +1080,7 @@ local function createColorPickerWindow(option)
 	option.satval = library:Create("ImageLabel", {
 		ZIndex = 3,
 		Position = UDim2.new(0, 8, 0, 8),
-		Size = UDim2.new(1, -100, 1, -42),
+		Size = UDim2.new(1, -75, 1, -50),
 		BackgroundTransparency = 1,
 		BackgroundColor3 = Color3.fromHSV(hue, 1, 1),
 		BorderSizePixel = 0,
@@ -1134,7 +1135,7 @@ local function createColorPickerWindow(option)
 	option.visualize2 = library:Create("ImageLabel", {
 		ZIndex = 3,
 		Position = UDim2.new(1, -8, 0, 8),
-		Size = UDim2.new(0, -80, 0, 80),
+		Size = UDim2.new(0, -60, 0, 60),
 		BackgroundTransparency = 1,
 		Image = "rbxassetid://3570695787",
 		ImageColor3 = currentColor,
@@ -1371,24 +1372,25 @@ local function createColor(option, parent, holder)
 			if not option.mainHolder then createColorPickerWindow(option) end
 			if library.activePopup then
 				library.activePopup:Close()
-			end
-			local position = option.main.AbsolutePosition
-			option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
-			option.open = true
-			option.mainHolder.Visible = true
-			library.activePopup = option
-			tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X - 5, 0, position.Y - 4)}):Play()
-			tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X - 5, 0, position.Y + 1)}):Play()
-			tweenService:Create(option.satval, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-			for _,object in next, option.mainHolder:GetDescendants() do
-				if object:IsA"TextLabel" then
-					tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-				elseif object:IsA"ImageLabel" then
-					tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
-				elseif object:IsA"Frame" then
-					tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-				end
-			end
+            else
+                local position = option.main.AbsolutePosition
+                option.mainHolder.Position = UDim2.new(0, position.X - 5, 0, position.Y - 10)
+                option.open = true
+                option.mainHolder.Visible = true
+                library.activePopup = option
+                tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0, Position = UDim2.new(0, position.X + 222, 0, position.Y - 4)}):Play()
+                tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), {Position = UDim2.new(0, position.X + 222, 0, position.Y + 1)}):Play()
+                tweenService:Create(option.satval, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+                for _,object in next, option.mainHolder:GetDescendants() do
+                    if object:IsA"TextLabel" then
+                        tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+                    elseif object:IsA"ImageLabel" then
+                        tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+                    elseif object:IsA"Frame" then
+                        tweenService:Create(object, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+                    end
+                end
+            end
 		end
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			inContact = true
@@ -1614,8 +1616,7 @@ local UnlockMouse
 function library:Init()
 	
 	self.base = self.base or self:Create("ScreenGui", {
-		Parent = game.CoreGui,
-		Name = GetUUID()
+		Parent = game.CoreGui
 	})
 	
 	self.cursor = self.cursor or self:Create("Frame", {
@@ -1623,8 +1624,8 @@ function library:Init()
 		AnchorPoint = Vector2.new(0, 0),
 		Size = UDim2.new(0, 5, 0, 5),
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-        Parent = self.base,
-        Visible = false
+		Parent = self.base,
+		Visible = false,
 	})
 	
 	for _, window in next, self.windows do
